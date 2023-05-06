@@ -9,15 +9,15 @@ demo_bp = Blueprint('demo_bp', __name__)
 
 @demo_bp.route('/demo')
 def demo():
-  system_prompt = """Create unique concepts in a fictional world. Names should not be in dictionary. You will generate two properties with its name and value. Write description in max 3 sentences. Write output in the JSON format below:
-  {"name":"-","type": "-","properties":{"-": "-","-": "-"},"description": "-"}
-  Follow my instructions strictly."""
+  system_prompt = """Create unique concepts in a fictional world. Names should not be in dictionary. Generate two properties only with name and value. Write description in max 3 sentences. Generate a color that fits the concept in HEX format. Follow my instructions strictly."""
+
+  user_prompt = """Generate a world-building concept. Use the JSON format: {"name":"-","type": "-","properties":{"-": "-","-": "-"},"description": "-","color":"-"}"""
 
   completion = openai.ChatCompletion.create(
     model="gpt-3.5-turbo",
     messages=[
       {"role": "system", "content": system_prompt},
-      {"role": "user", "content": "Write a world building object with no context. Use your inventiveness."}
+      {"role": "user", "content": user_prompt}
     ]
   )
 
@@ -27,6 +27,6 @@ def demo():
     parsed_output = json.loads(completion['choices'][0]['message']['content'])
     output = json.dumps({"status": "success", "content": parsed_output})
   except json.JSONDecodeError as e:
-    output = json.dumps({"status": "fail", "content" : e})
+    output = json.dumps({"status": "fail", "content" : "error"})
     
   return output
