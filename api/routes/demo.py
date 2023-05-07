@@ -1,6 +1,6 @@
 from flask import Blueprint
 import os
-import openai
+import openai 
 import json
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
