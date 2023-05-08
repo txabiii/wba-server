@@ -1,12 +1,13 @@
 from flask import Blueprint, request, jsonify
 from api.models.users import User
+import bleach
 
 enter_bp = Blueprint('enter_bp', __name__)
 
 @enter_bp.route('/enter', methods=['POST'])
 def enter():
   data = request.get_json()
-  email = data.get('email')
+  email = bleach.clean(data.get('email'))
 
   user = User.query.filter_by(email=email).first()
 

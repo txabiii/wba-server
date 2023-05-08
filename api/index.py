@@ -5,8 +5,9 @@ import os
 
 from api.routes.demo import demo_bp
 from api.routes.enter import enter_bp
+from api.routes.login import login_bp
+from api.routes.sign_up import sign_up_bp
 from api.db import db
-
 
 app = Flask(__name__)
 
@@ -20,7 +21,8 @@ CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 app.register_blueprint(demo_bp)
 app.register_blueprint(enter_bp)
-
+app.register_blueprint(login_bp)
+app.register_blueprint(sign_up_bp)
 
 @app.route('/')
 def home():
