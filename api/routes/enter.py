@@ -12,6 +12,6 @@ def enter():
   user = User.query.filter_by(email=email).first()
 
   if user:
-    return jsonify({'status': '400', 'message': 'Email Found'})
+    return jsonify({'status': 400, 'message': 'Email Found'})
   else: 
-    return jsonify({'status': '404', 'message': 'Email Not Found'})
+    return jsonify({'status': 404, 'message': 'Email Not Found'})
