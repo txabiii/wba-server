@@ -8,6 +8,8 @@ class User(db.Model):
   password = db.Column(db.String(255), nullable=False)
   verified = db.Column(db.Boolean, nullable=False, default=False)
 
+  email_verification = db.relationship('UserVerification', backref='user_obj', uselist=False)
+
   def __init__(self, email, password):
     self.email = email
     self.password = password
@@ -16,4 +18,5 @@ class User(db.Model):
     return f'<User {self.email}>'
   
   def check_password(self, password):
+    print(str(self.password) + ' - ' + str(password))
     return (self.password == password)

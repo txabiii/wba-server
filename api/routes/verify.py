@@ -1,4 +1,5 @@
-from flask import Blueprint, request, session, jsonify
+from flask import Blueprint, request, jsonify
+from flask_jwt_extended import get_jwt_identity, jwt_required
 from api.models.user_verification import UserVerification
 from api.models.users import User
 from api.verification import send_email
@@ -25,7 +26,7 @@ def verify():
 
   return jsonify({'status': 200, 'message': 'Verification email sent'})
 
-@verify_bp.route('/verify/token')
+@verify_bp.route('/verify/token', methods=['POST'])
 def verifyToken():
   data = request.get_json()
   input_token = bleach.clean(data.get('inputToken'))
@@ -40,3 +41,18 @@ def verifyToken():
     return jsonify({'status': 200, 'message': 'User is verified'})
   else:
     return jsonify({'status': 401, 'message': 'Invalid token'})
+  
+
+@verify_bp.route('/verify/check', methods=['POST'])
+@jwt_required()
+def checkVerification():
+  current_user_id = get_jwt_identity()
+
+  user = User.query.filter_by(id=current_user_id).first()
+
+  print(user.verified)
+
+  if user.verified == True:
+    return jsonify({'status': 200, 'message': 'User is verified'})
+  else: 
+    return jsonify({'status': 401, 'message': 'User is not verified'})

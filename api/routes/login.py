@@ -1,7 +1,9 @@
 from flask import Blueprint, request, jsonify, session
-from api.models.users import User
+from flask_jwt_extended import create_access_token
 import bleach
 import hashlib
+
+from api.models.users import User
 
 login_bp = Blueprint('login_bp', __name__)
 
@@ -18,6 +20,9 @@ def login():
   if user and user.check_password(hashed_password):
     session['user_id'] = user.id
     session['user_email'] = user.email
-    return jsonify({'status': 200, 'message': 'Login successful'})
+    session['verified'] = user.verified
+    access_token = create_access_token(identity=user.id)
+    response = jsonify({'status': 200, 'message': 'Login successful', 'wba_access_token': access_token})
+    return response
   else:
     return jsonify({'status': 401, 'message': 'Login failed'})

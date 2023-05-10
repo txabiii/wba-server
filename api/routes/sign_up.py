@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify, session
+from flask_jwt_extended import create_access_token
 import bleach
 import hashlib
 
@@ -21,5 +22,7 @@ def sign_up():
 
   session['user_id'] = new_user.id
   session['user_email'] = new_user.email
-
-  return jsonify({'status': 200, 'message': 'User created successfully'})
+  session['verified'] = new_user.verified
+  access_token = create_access_token(identity=new_user.id)
+  response = jsonify({'status': 200, 'message': 'User created successfully', 'wba_access_token': access_token})
+  return response
