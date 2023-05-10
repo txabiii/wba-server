@@ -20,9 +20,6 @@ def sign_up():
   db.session.add(new_user)
   db.session.commit()
 
-  session['user_id'] = new_user.id
-  session['user_email'] = new_user.email
-  session['verified'] = new_user.verified
-  access_token = create_access_token(identity=new_user.id)
+  access_token = create_access_token(identity=new_user.id, expires_delta=False)
   response = jsonify({'status': 200, 'message': 'User created successfully', 'wba_access_token': access_token})
   return response

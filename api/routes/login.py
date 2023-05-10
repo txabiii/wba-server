@@ -18,10 +18,7 @@ def login():
   hashed_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
 
   if user and user.check_password(hashed_password):
-    session['user_id'] = user.id
-    session['user_email'] = user.email
-    session['verified'] = user.verified
-    access_token = create_access_token(identity=user.id)
+    access_token = create_access_token(identity=user.id, expires_delta=False)
     response = jsonify({'status': 200, 'message': 'Login successful', 'wba_access_token': access_token})
     return response
   else:
