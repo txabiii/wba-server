@@ -19,7 +19,7 @@ def login():
 
   if user and user.check_password(hashed_password):
     access_token = create_access_token(identity=user.id, expires_delta=False)
-    response = jsonify({'status': 200, 'message': 'Login successful', 'wba_access_token': access_token})
+    response = jsonify({'status': 200, 'message': 'Login successful', 'wba_access_token': access_token, 'email': user.email})
     return response
   else:
     return jsonify({'status': 401, 'message': 'Login failed'})

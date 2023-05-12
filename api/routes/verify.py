@@ -35,7 +35,7 @@ def verifyToken():
 
   current_user_id = get_jwt_identity()
 
-  user_verification = UserVerification.query.filter_by(user_id=current_user_id).first()
+  user_verification = UserVerification.query.filter_by(user_id=current_user_id).order_by(UserVerification.created_at).first()
 
   if input_token == user_verification.token:
     user = User.query.filter_by(id=current_user_id).first()
