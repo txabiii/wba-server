@@ -5,7 +5,7 @@ from api.routes.demo import demo_bp
 
 app = Flask(__name__)
 
-CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "https://scrollarium.vercel.app/"]}}) 
+CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "https://scrollarium.vercel.app"]}}) 
 
 app.register_blueprint(demo_bp)
 
