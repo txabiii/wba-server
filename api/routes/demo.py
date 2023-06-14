@@ -11,10 +11,10 @@ demo_bp = Blueprint('demo_bp', __name__)
 def demo():
   system_prompt = """You are a world-building expert. Draw inspiration from fantasy and sci-fi books. Names should unique. Generate two properties only with name and value. Write description in max 5 sentences. Generate a color that fits the concept in HEX format. Follow instructions strictly."""
 
-  user_prompt = """Generate a unique world-building concept which could be a character, place, object, etc. Use the JSON format: {"name":"-","type": "-","properties":{"-": "-","-": "-"},"description": "-","color":"-"}"""
+  user_prompt = """Generate a unique world-building concept which could be a character, creature, place, object, skills, events, etc. Use the JSON format: {"name":"-","type": "-","properties":{"-": "-","-": "-"},"description": "-","color":"-"}"""
 
   completion = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo",
+    model="gpt-3.5-turbo-0613",
     messages=[
       {"role": "system", "content": system_prompt},
       {"role": "user", "content": user_prompt}
