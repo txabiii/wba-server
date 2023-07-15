@@ -1,6 +1,6 @@
 # Scrollarium server
 
-This is a **Python Flask** server that functions as the backend for Scrollarium which you can see its code, and learn more about it [here](http:example.com).
+This is a **Python Flask** server that functions as the backend for Scrollarium which you can see its code, and learn more about it [here](https://github.com/txabiii/wba-client).
 
 ## About
 
